@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Clinic patient flow dashboard for appointments, queues, provider assignment, and visit completion." />
+  <title>CareFlow | Clinic Patient Flow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="CareFlow home">
+        <span class="brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M17 7h6v10h10v6H23v10h-6V23H7v-6h10z" fill="currentColor"/></svg></span>
+        <span>careflow<span class="brand-dot">.</span><small>CLINIC OPERATIONS</small></span>
+      </a>
+      <div class="clinic-switcher">
+        <div class="clinic-avatar">NH</div>
+        <div class="clinic-info"><strong>Northstar Health</strong><span>Downtown clinic</span></div>
+        <span class="chevron">⌄</span>
+      </div>
+      <p class="nav-label">WORKSPACE</p>
+      <nav class="nav-menu" aria-label="Main navigation">
+        <a class="nav-item active" href="#overview"><span class="nav-icon">▦</span> Overview</a>
+        <a class="nav-item" href="#appointments"><span class="nav-icon">▤</span> Appointments <span class="nav-count" id="navAppointmentCount">12</span></a>
+        <a class="nav-item" href="#queue"><span class="nav-icon">◷</span> Patient queue</a>
+        <a class="nav-item" href="#providers"><span class="nav-icon">♧</span> Care team</a>
+        <a class="nav-item" href="#reports"><span class="nav-icon">▥</span> Reports</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-icon">✦</div><strong>Need a hand?</strong><p>Find tips to keep your clinic running smoothly.</p><button type="button" class="help-link" id="helpBtn">Visit help center <span>↗</span></button></div>
+        <a class="nav-item" href="#settings"><span class="nav-icon">⚙</span> Settings</a>
+        <div class="profile">
+          <div class="profile-avatar">AM</div>
+          <div class="profile-text"><strong>Alex Morgan</strong><span>Clinic administrator</span></div>
+          <button class="more-btn" aria-label="Profile options">•••</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Toggle navigation">☰</button>
+        <div class="breadcrumbs">Workspace <span>/</span> <strong>Overview</strong></div>
+        <div class="topbar-actions">
+          <div class="live-status"><span class="live-dot"></span> Live overview</div>
+          <button class="icon-button notification-button" aria-label="Notifications" id="notificationBtn">♧<i></i></button>
+          <div class="topbar-avatar">AM</div>
+        </div>
+      </header>
+
+      <section class="page-heading">
+        <div><p class="eyebrow">THURSDAY, OCTOBER 29, 2026 <span class="eyebrow-line"></span> DAILY OPERATIONS</p>
+          <h1>Your clinic, at a glance<span class="heading-period">.</span></h1>
+          <p class="page-subtitle">A clear view of today's appointments, patient flow, and care team.</p>
+        </div>
+        <div class="heading-actions"><button class="button button-light" id="exportBtn"><span>↓</span> Export report</button><button class="button button-primary" id="newAppointmentBtn"><span>＋</span> New appointment</button></div>
+      </section>
+
+      <section class="stat-grid" aria-label="Daily key performance indicators">
+        <article class="stat-card"><div class="stat-top"><span class="stat-label">Today's appointments</span><span class="stat-icon lilac">▤</span></div><div class="stat-value" id="statAppointments">24</div><div class="stat-bottom"><span class="trend positive">↗ 8.2%</span><span>vs. last Thursday</span><span class="sparkline spark-purple">▁▃▂▅▄▇▆</span></div></article>
+        <article class="stat-card"><div class="stat-top"><span class="stat-label">Patients waiting</span><span class="stat-icon amber">◷</span></div><div class="stat-value" id="statWaiting">06 <small>patients</small></div><div class="stat-bottom"><span class="trend positive">↓ 2 patients</span><span>in the last hour</span><span class="sparkline spark-orange">▆▅▇▄▅▃▂</span></div></article>
+        <article class="stat-card"><div class="stat-top"><span class="stat-label">Completed visits</span><span class="stat-icon mint">✓</span></div><div class="stat-value" id="statCompleted">14 <small>/ 24</small></div><div class="progress-track"><span style="width:58.3%"></span></div><div class="stat-footnote">58% of today's schedule completed</div></article>
+        <article class="stat-card"><div class="stat-top"><span class="stat-label">Average wait time</span><span class="stat-icon blue">⌁</span></div><div class="stat-value">12 <small>min</small></div><div class="stat-bottom"><span class="trend positive">↓ 4 min</span><span>from yesterday</span><span class="sparkline spark-blue">▇▆▅▆▄▃▂</span></div></article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel flow-panel">
+          <div class="panel-heading"><div><h2>Patient flow</h2><p>Track every visit from arrival to completion.</p></div><button class="select-button" id="flowPeriodBtn">Today <span>⌄</span></button></div>
+          <div class="flow-steps">
+            <div class="flow-step"><div class="flow-step-top"><span class="flow-icon step-arrived">↘</span><span class="flow-percent">100%</span></div><strong>Checked in</strong><div class="flow-number">24</div><div class="mini-track"><span style="width:100%"></span></div><small>All scheduled arrivals</small></div>
+            <div class="flow-connector">→</div>
+            <div class="flow-step"><div class="flow-step-top"><span class="flow-icon step-waiting">◷</span><span class="flow-percent">25%</span></div><strong>Waiting</strong><div class="flow-number">6</div><div class="mini-track orange-track"><span style="width:25%"></span></div><small>In the waiting area</small></div>
+            <div class="flow-connector">→</div>
+            <div class="flow-step"><div class="flow-step-top"><span class="flow-icon step-progress">✚</span><span class="flow-percent">17%</span></div><strong>In consultation</strong><div class="flow-number">4</div><div class="mini-track blue-track"><span style="width:17%"></span></div><small>With a provider</small></div>
+            <div class="flow-connector">→</div>
+            <div class="flow-step"><div class="flow-step-top"><span class="flow-icon step-done">✓</span><span class="flow-percent">58%</span></div><strong>Completed</strong><div class="flow-number">14</div><div class="mini-track green-track"><span style="width:58%"></span></div><small>Visit closed</small></div>
+          </div>
+          <div class="flow-footer"><span><span class="legend-dot dot-purple"></span> Patient journey</span><span>Updated just now <span class="refresh-icon">↻</span></span></div>
+        </article>
+
+        <article class="panel workload-panel" id="providers">
+          <div class="panel-heading"><div><h2>Care team workload</h2><p>Today's provider assignments.</p></div><button class="text-action" id="viewTeamBtn">View team ↗</button></div>
+          <div class="provider-list">
+            <div class="provider-row"><div class="provider-avatar avatar-one">SC</div><div class="provider-details"><strong>Dr. Sarah Chen</strong><span>General medicine</span><div class="workload-track"><span style="width:72%"></span></div></div><div class="provider-count"><strong>8 <small>/ 11</small></strong><span>visits</span></div></div>
+            <div class="provider-row"><div class="provider-avatar avatar-two">JR</div><div class="provider-details"><strong>Dr. James Rivera</strong><span>Pediatrics</span><div class="workload-track track-green"><span style="width:54%"></span></div></div><div class="provider-count"><strong>6 <small>/ 11</small></strong><span>visits</span></div></div>
+            <div class="provider-row"><div class="provider-avatar avatar-three">PN</div><div class="provider-details"><strong>Dr. Priya Nair</strong><span>Family medicine</span><div class="workload-track track-orange"><span style="width:83%"></span></div></div><div class="provider-count"><strong>10 <small>/ 12</small></strong><span>visits</span></div></div>
+          </div>
+          <div class="workload-footer"><span class="availability-dot"></span> All providers are on schedule</div>
+        </article>
+      </section>
+
+      <section class="panel appointments-panel" id="appointments">
+        <div class="panel-heading appointments-heading"><div><h2>Today's appointments <span class="table-count" id="tableCount">12</span></h2><p>Manage check-ins, queues, and visit status in one place.</p></div><div class="table-actions"><label class="search-box"><span>⌕</span><input type="search" id="searchInput" placeholder="Search patient..." aria-label="Search appointments"></label><select id="statusFilter" class="filter-select" aria-label="Filter by status"><option value="all">All statuses</option><option value="Waiting">Waiting</option><option value="In consultation">In consultation</option><option value="Completed">Completed</option><option value="Checked in">Checked in</option></select><button class="filter-button" id="clearFiltersBtn">↺ <span>Reset</span></button></div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>PATIENT</th><th>APPOINTMENT</th><th>PROVIDER</th><th>CHECK-IN</th><th>QUEUE</th><th>VISIT STATUS</th><th><span class="sr-only">Actions</span></th></tr></thead>
+            <tbody id="appointmentRows"></tbody>
+          </table>
+          <div class="empty-state" id="emptyState" hidden><span>⌕</span><strong>No appointments found</strong><p>Try another search or clear your filters.</p></div>
+        </div>
+        <div class="table-footer"><span id="tableSummary">Showing 1–8 of 12 appointments</span><div class="pagination"><button id="prevPage" aria-label="Previous page" disabled>‹</button><span id="pageIndicator">1 / 2</span><button id="nextPage" aria-label="Next page">›</button></div></div>
+      </section>
+      <footer class="footer"><span>© 2026 CareFlow Clinic Systems</span><span><span class="security-lock">♢</span> Secure clinic workspace <span class="footer-separator">·</span> Demo data for educational use</span></footer>
+    </main>
+  </div>
+
+  <dialog id="appointmentDialog" class="modal">
+    <form id="appointmentForm" method="dialog">
+      <div class="modal-heading"><div><p class="eyebrow">PATIENT MANAGEMENT</p><h2>New appointment</h2></div><button type="button" class="modal-close" id="closeModal" aria-label="Close dialog">×</button></div>
+      <p class="modal-intro">Add a patient to today's appointment list.</p>
+      <div class="form-grid">
+        <label class="form-field full-field">Patient full name<input id="patientName" required placeholder="e.g. Taylor Brooks" maxlength="70"></label>
+        <label class="form-field">Appointment time<input id="patientTime" type="time" required value="15:30"></label>
+        <label class="form-field">Provider<select id="patientProvider"><option>Dr. Sarah Chen</option><option>Dr. James Rivera</option><option>Dr. Priya Nair</option></select></label>
+        <label class="form-field full-field">Visit type<select id="patientVisit"><option>General consultation</option><option>Follow-up</option><option>Child wellness</option><option>Family medicine</option></select></label>
+      </div>
+      <div class="modal-actions"><button type="button" class="button button-light" id="cancelModal">Cancel</button><button type="submit" class="button button-primary">＋ Add appointment</button></div>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
